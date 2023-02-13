@@ -6,35 +6,32 @@ import 'package:news_app/services/news_services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class AllNewsViewModel extends FutureViewModel<List<AllNews>> {
+class AllNewsViewModel extends BaseViewModel {
   final NewsServices _newsServices = locator<NewsServices>();
-  final SnackbarService _snackbarService = locator<SnackbarService>();
+  // final SnackbarService _snackbarService = locator<SnackbarService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  List<AllNews> _allNews = [];
+  List<AllNews> get allNews => _allNews;
 
-  Future<List<AllNews>> getAllData() async {
+  getAllData() async {
     try {
-      return await _newsServices.getAllNews(NewsCategory.all);
+      setBusy(true);
+      await Future.delayed(const Duration(seconds: 3));
+      _allNews = await _newsServices.getAllNews(NewsCategory.all);
+      setBusy(false);
+      setError(false);
+      notifyListeners();
     } catch (e) {
+      setError(true);
+      setBusy(false);
+      notifyListeners();
+
       rethrow;
     }
   }
 
-  @override
-  Future<List<AllNews>> futureToRun() {
-    return getAllData();
-  }
-
   void tryToRefetchData() async {
-    setBusy(true);
-    await Future.delayed(const Duration(seconds: 3));
-
-    setBusy(false);
-    setError(true);
-  }
-
-  @override
-  void onError(error) {
-    _snackbarService.showSnackbar(message: "Check your Internet Connection");
+    await getAllData();
   }
 
   Future onClickTheNews(AllNews allNews) async {

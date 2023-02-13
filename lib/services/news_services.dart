@@ -1,5 +1,4 @@
 import 'package:news_app/models/all_news.dart';
-import 'package:news_app/ui/views/tabs/all/all_view.dart';
 
 import '../api/get_apis.dart';
 import '../app/app.locator.dart';

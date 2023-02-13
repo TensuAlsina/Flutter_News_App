@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:news_app/app/app.locator.dart';
 import 'package:news_app/models/all_news.dart';
+import 'package:news_app/services/db_services.dart';
 
 enum NewsCategory {
   all,
@@ -14,6 +16,7 @@ enum NewsCategory {
 }
 
 class GetApis {
+  final DataBaseServices _dataBaseServices = locator<DataBaseServices>();
   static const String endPoint = "https://inshorts.deta.dev/news?category=";
   Future<List<AllNews>> getNews(NewsCategory category) async {
     String endPointCategory = getEndPointCategory(category);
@@ -24,8 +27,11 @@ class GetApis {
       for (var news in parsed['data']) {
         allNews.add(AllNews.fromJson(news));
       }
+      await _dataBaseServices.putData(allNews);
+
       return allNews;
-    } catch (e) {
+    } catch (SocketException) {
+      print("No Internet");
       rethrow;
     }
   }

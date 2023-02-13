@@ -11,6 +11,7 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_services/src/snackbar/snackbar_service.dart';
 
 import '../api/get_apis.dart';
+import '../services/db_services.dart';
 import '../services/news_services.dart';
 import '../ui/views/tabs/all/all_viewmodel.dart';
 import '../ui/views/tabs/business/business_viewmodel.dart';
@@ -40,4 +41,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => TechnologyViewModel());
   locator.registerLazySingleton(() => WorldViewModel());
   locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton(() => DataBaseServices());
 }

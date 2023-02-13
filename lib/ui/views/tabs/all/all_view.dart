@@ -15,8 +15,10 @@ class AllNewsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AllNewsViewModel>.reactive(
       viewModelBuilder: () => locator<AllNewsViewModel>(),
-      initialiseSpecialViewModelsOnce: true,
+      initialiseSpecialViewModelsOnce: false,
+      fireOnViewModelReadyOnce: true,
       disposeViewModel: false,
+      onViewModelReady: (viewModel) => viewModel.getAllData(),
       builder: (
         BuildContext context,
         AllNewsViewModel model,
@@ -26,7 +28,7 @@ class AllNewsView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           child: model.isBusy
               ? const MyShimmerWidget()
-              : model.hasError
+              : !model.hasError
                   ? MyErrorWidget(
                       onPressed: () => model.getAllData(),
                     )
@@ -35,14 +37,15 @@ class AllNewsView extends StatelessWidget {
                       separatorBuilder: (context, index) => SizedBox(
                             height: screenHeight(context) * 0.03,
                           ),
-                      itemCount: model.data!.length,
+                      itemCount: model.allNews.length,
                       itemBuilder: (context, index) {
                         return NewsContainer(
-                          imageUrl: model.data![index].imageUrl,
-                          author: model.data![index].author,
-                          title: model.data![index].title,
-                          date: model.data![index].date,
-                          onTap: () => model.onClickTheNews(model.data![index]),
+                          imageUrl: model.allNews[index].imageUrl,
+                          author: model.allNews[index].author,
+                          title: model.allNews[index].title,
+                          date: model.allNews[index].date,
+                          onTap: () =>
+                              model.onClickTheNews(model.allNews[index]),
                         );
                       }),
         );

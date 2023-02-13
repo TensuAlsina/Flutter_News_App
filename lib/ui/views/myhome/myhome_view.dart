@@ -39,7 +39,7 @@ class _MyHomeViewState extends State<MyHomeView> with TickerProviderStateMixin {
                   margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
                   child: TextField(
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(12),
+                        contentPadding: const EdgeInsets.all(12),
                         suffixIcon: const Icon(Icons.search),
                         hintText: "Enter keywords..",
                         border: OutlineInputBorder(

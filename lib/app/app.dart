@@ -1,4 +1,5 @@
 import 'package:news_app/api/get_apis.dart';
+import 'package:news_app/services/db_services.dart';
 import 'package:news_app/services/news_services.dart';
 import 'package:news_app/ui/views/home/home_view.dart';
 import 'package:news_app/ui/views/news_detail/detail_view.dart';
@@ -26,6 +27,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: SportsViewModel),
   LazySingleton(classType: TechnologyViewModel),
   LazySingleton(classType: WorldViewModel),
-  LazySingleton(classType: NavigationService)
+  LazySingleton(classType: NavigationService),
+  LazySingleton(classType: DataBaseServices)
 ])
 class $App {}
