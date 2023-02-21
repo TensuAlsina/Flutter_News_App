@@ -13,6 +13,8 @@ import 'package:news_app/ui/views/tabs/world/world_viewmodel.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../ui/views/myhome/myhome_viewmodel.dart';
+
 @StackedApp(routes: [
   MaterialRoute(page: HomeView, initial: true),
   CupertinoRoute(page: DetailView)
@@ -28,6 +30,7 @@ import 'package:stacked_services/stacked_services.dart';
   LazySingleton(classType: TechnologyViewModel),
   LazySingleton(classType: WorldViewModel),
   LazySingleton(classType: NavigationService),
-  LazySingleton(classType: DataBaseServices)
+  LazySingleton(classType: DataBaseServices),
+  LazySingleton(classType: MyHomeViewModel),
 ])
 class $App {}

@@ -1,28 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../ui_helpers/ui_helpers.dart';
 
 class NewsContainer extends StatelessWidget {
   final void Function()? onTap;
+  // final void Function()? onIconPressed;
   final String imageUrl;
   final String title;
   final String author;
   final String date;
-  const NewsContainer(
-      {Key? key,
-      required this.imageUrl,
-      required this.title,
-      required this.author,
-      required this.date,
-      this.onTap})
-      : super(key: key);
+  // bool isSaved;
+  NewsContainer({
+    Key? key,
+    required this.imageUrl,
+    required this.title,
+    required this.author,
+    required this.date,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: screenHeight(context) * 0.35,
+        height: screenHeight(context) * 0.36,
         width: double.infinity,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
@@ -37,8 +40,8 @@ class NewsContainer extends StatelessWidget {
                 height: screenHeight(context) * 0.2,
                 width: double.infinity,
                 // color: Colors.red,
-                child:
-                    Image(fit: BoxFit.fitWidth, image: NetworkImage(imageUrl))),
+                child: CachedNetworkImage(
+                    fit: BoxFit.fitWidth, imageUrl: imageUrl)),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -66,8 +69,10 @@ class NewsContainer extends StatelessWidget {
                     ],
                   ),
                   // IconButton(
-                  //     onPressed: () {},
-                  //     icon: const Icon(Icons.bookmark))
+                  //     onPressed: onIconPressed,
+                  //     icon: Icon(isSaved
+                  //         ? Icons.bookmark
+                  //         : Icons.bookmark_border_rounded))
                 ],
               ),
             )

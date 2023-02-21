@@ -7,7 +7,6 @@ import 'package:stacked/stacked.dart';
 
 import '../myhome/myhome_view.dart';
 import '../profile/profile_view.dart';
-import '../saved/saved_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -28,6 +27,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       ) {
         return Scaffold(
             bottomNavigationBar: GNav(
+              backgroundColor: Colors.cyan,
               onTabChange: model.setIndex,
               gap: 8,
               tabs: const [
@@ -36,11 +36,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   text: "Home",
                 ),
                 GButton(
-                  icon: Icons.bookmark_border,
-                  text: "Saved",
-                ),
-                GButton(
-                  icon: Icons.person,
+                  icon: Icons.settings,
                   text: "Setting",
                 ),
               ],
@@ -55,9 +51,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       case 0:
         return const MyHomeView();
       case 1:
-        return const SavedView();
-      case 2:
         return const ProfileView();
+
       default:
         return const MyHomeView();
     }

@@ -37,6 +37,7 @@ class BusinessView extends StatelessWidget {
                       author: model.data![index].author,
                       title: model.data![index].title,
                       date: model.data![index].date,
+                      onTap: () => model.onClickTheNews(model.data![index]),
                     );
                   }),
         );

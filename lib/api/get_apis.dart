@@ -7,7 +7,7 @@ import 'package:news_app/services/db_services.dart';
 
 enum NewsCategory {
   all,
-  sport,
+  sports,
   business,
   politics,
   technology,
@@ -28,10 +28,8 @@ class GetApis {
         allNews.add(AllNews.fromJson(news));
       }
       await _dataBaseServices.putData(allNews);
-
       return allNews;
     } catch (SocketException) {
-      print("No Internet");
       rethrow;
     }
   }
@@ -46,7 +44,7 @@ class GetApis {
         return "entertainment";
       case NewsCategory.politics:
         return "politics";
-      case NewsCategory.sport:
+      case NewsCategory.sports:
         return "sport";
       case NewsCategory.technology:
         return "technology";

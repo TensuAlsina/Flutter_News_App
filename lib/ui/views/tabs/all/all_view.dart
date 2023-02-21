@@ -5,20 +5,19 @@ import 'package:news_app/ui/widgets/dumb_widgets/error_widget.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../../app/app.locator.dart';
+import '../../../../models/all_news.dart';
 import '../../../widgets/dumb_widgets/news_container.dart';
 import '../../../widgets/dumb_widgets/shimmer/myShimer.dart';
 
 class AllNewsView extends StatelessWidget {
-  const AllNewsView({Key? key}) : super(key: key);
+  final List<AllNews>? allAllNews;
+  const AllNewsView({Key? key, this.allAllNews}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AllNewsViewModel>.reactive(
-      viewModelBuilder: () => locator<AllNewsViewModel>(),
-      initialiseSpecialViewModelsOnce: false,
-      fireOnViewModelReadyOnce: true,
+      viewModelBuilder: () => AllNewsViewModel(),
       disposeViewModel: false,
-      onViewModelReady: (viewModel) => viewModel.getAllData(),
       builder: (
         BuildContext context,
         AllNewsViewModel model,
@@ -26,28 +25,23 @@ class AllNewsView extends StatelessWidget {
       ) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-          child: model.isBusy
-              ? const MyShimmerWidget()
-              : !model.hasError
-                  ? MyErrorWidget(
-                      onPressed: () => model.getAllData(),
-                    )
-                  : ListView.separated(
-                      key: const PageStorageKey("myStorage-key"),
-                      separatorBuilder: (context, index) => SizedBox(
-                            height: screenHeight(context) * 0.03,
-                          ),
-                      itemCount: model.allNews.length,
-                      itemBuilder: (context, index) {
-                        return NewsContainer(
-                          imageUrl: model.allNews[index].imageUrl,
-                          author: model.allNews[index].author,
-                          title: model.allNews[index].title,
-                          date: model.allNews[index].date,
-                          onTap: () =>
-                              model.onClickTheNews(model.allNews[index]),
-                        );
-                      }),
+          child: allAllNews == null
+              ? Text("")
+              : ListView.separated(
+                  key: const PageStorageKey("myStorage-key"),
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: screenHeight(context) * 0.03,
+                      ),
+                  itemCount: allAllNews!.length,
+                  itemBuilder: (context, index) {
+                    return NewsContainer(
+                      imageUrl: allAllNews![index].imageUrl,
+                      author: allAllNews![index].author,
+                      title: allAllNews![index].title,
+                      date: allAllNews![index].date,
+                      onTap: () => model.onClickTheNews(allAllNews![index]),
+                    );
+                  }),
         );
       },
     );

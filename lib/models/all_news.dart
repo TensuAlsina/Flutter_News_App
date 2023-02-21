@@ -17,13 +17,14 @@ class AllNews {
   @HiveField(5)
   final String title;
 
-  AllNews(
-      {required this.author,
-      required this.content,
-      required this.date,
-      required this.imageUrl,
-      required this.time,
-      required this.title});
+  AllNews({
+    required this.author,
+    required this.content,
+    required this.date,
+    required this.imageUrl,
+    required this.time,
+    required this.title,
+  });
 
   factory AllNews.fromJson(Map<String, dynamic> json) {
     return AllNews(
